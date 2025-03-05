@@ -1,6 +1,7 @@
 # Initial setup
 ```
 composer install
+php artisan migrate
 php artisan serve
 ```
 make sure _C:/tools/php81/php.ini~orig_ is configured properly
