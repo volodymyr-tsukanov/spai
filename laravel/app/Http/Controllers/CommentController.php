@@ -12,7 +12,13 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return view("comments");
+        $comments = Comment::orderBy('created_at', 'asc')->get();
+        return view('comments',['comments'=>$comments]);
+    }
+
+    public function validate(Request $request, array $rules)
+    {
+
     }
 
     /**
@@ -20,7 +26,8 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        $comment = new Comment();
+        return view('commentsForm',['comment'=>$comment]);
     }
 
     /**
@@ -28,7 +35,24 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Podstawowa walidacja formularza:
+        $this->validate($request, [
+            'message' => 'required|min:10|max:255',
+        ]);
+
+        if(\Auth::user() == null){
+            return redirect('login');
+        }
+
+        $comment = new Comment();
+        $comment->user_id = \Auth::user()->id;
+        $comment->message = $request->message;
+
+        if($comment->save()){
+            return  redirect('comments');
+        } else {
+            return view('commentsForm');
+        }
     }
 
     /**
