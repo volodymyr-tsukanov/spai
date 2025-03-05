@@ -1,6 +1,7 @@
 # Initial setup
 ```
 composer install
+php artisan breeze:install	# for login/register. choose: blade, yes, 0
 php artisan migrate
 php artisan serve
 ```
