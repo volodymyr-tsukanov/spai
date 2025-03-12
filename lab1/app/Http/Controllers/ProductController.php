@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+
 
 class ProductController extends Controller
 {
@@ -11,7 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return $products;
     }
 
     /**
@@ -27,7 +30,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->save();
+        return $product;
     }
 
     /**
@@ -35,7 +42,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return $product;
     }
 
     /**
@@ -51,7 +59,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->save();
+        return $product;
     }
 
     /**
@@ -59,6 +71,10 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        if($product->delete()) {
+            return $product;
+        }
+        return null;
     }
 }
