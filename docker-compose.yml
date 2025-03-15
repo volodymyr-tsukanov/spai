@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  spai-app:
+    build:
+      context: .
+      dockerfile: lalp-web-a_df
+    image: lalp-web:alpha
+    container_name: spai-app_cnt
+    networks:
+      - spai_network
+    ports:
+      - "127.0.0.1:8001:8000"
+    depends_on:
+      - spai-db
+    resource_limits:
+      memory: 766m  # hehe not *8
+      cpus: 0.6
+
+  spai-db:
+    image: docker.io/mysql:8.0-debian
+    container_name: spai-db_cnt
+    env_file:
+      - .env.cnt
+    environment:
+      - MYSQL_ROOT_PASSWORD=adm1n
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - spai-db_data:/var/lib/mysql
+    networks:
+      - spai_network
+    ports:
+      - "127.0.0.1:3304:3306"   # exposes container on loopback; scheme [ip]:[local machine listen port]:[container listen port]
+    resource_limits:
+      memory: 256m
+      cpus: 0.3
+
+
+networks:
+  spai_network:
+    driver: bridge
+
+volumes:
+  spai-db_data:
+    driver: local

@@ -1,7 +1,13 @@
-# spai
+# spai - Containerized
 Advanced Web Application Engineering <br>
 
-**php**, **Laravel**
+**Podman**, **docker**
+
+## Setup
+```bash
+podman-compose up --build --no-cache --no-start
+podman-compose run spai-app ash
+```
 
 
 Shields: [![MIT License][mit-shield]][mit]
