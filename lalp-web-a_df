@@ -1,3 +1,4 @@
+# LAlp v.0.1-a
 # Stage 1 - SETUP
 FROM docker.io/alpine:latest
 
@@ -5,7 +6,7 @@ FROM docker.io/alpine:latest
 RUN apk add --no-cache php82
 RUN apk add --no-cache php-session php-tokenizer php-xml php-ctype php-curl php-dom php-fileinfo php-mbstring php-openssl php-pdo php-pdo_mysql php-mysqli php-xmlwriter php-simplexml composer
 RUN composer self-update
-RUN composer -V
+RUN composer diagnose
 
 ## node.js
 RUN apk add --no-cache --update nodejs npm
@@ -14,10 +15,9 @@ RUN npm version
 
 # Stage 2 - CLEANUP
 RUN mkdir /vtools
-COPY ./cnt/vtools /
+COPY ./cnt/vtools /vtools/
 RUN ash /vtools/autoclean.sh
 
 COPY ./cnt/mod-release /etc/
-
 
 WORKDIR /home

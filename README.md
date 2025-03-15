@@ -5,7 +5,7 @@ Advanced Web Application Engineering <br>
 
 ## Setup
 ```bash
-podman-compose up --build --no-cache --no-start
+podman-compose up --build --no-start
 podman-compose run spai-app ash
 ```
 
