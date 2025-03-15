@@ -16,6 +16,7 @@ services:
     resource_limits:
       memory: 766m  # hehe not *8
       cpus: 0.6
+    command: tail -f /dev/null  # keep alive
 
   spai-db:
     image: docker.io/mysql:8.0-debian

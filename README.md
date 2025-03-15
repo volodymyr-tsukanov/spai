@@ -5,8 +5,17 @@ Advanced Web Application Engineering <br>
 
 ## Setup
 ```bash
-podman-compose up --build --no-start
-podman-compose run spai-app ash
+podman-compose build
+podman-compose up -d -t 4 && podman-compose exec spai-app ash
+podman cp . spai-app_cnt:/home/
+```
+inside spai-app_cnt
+```sh
+mv .env.cnt .env
+composer install && npm install
+# php artisan breeze:install
+php artisan migrate
+php artisan serve --host=0.0.0.0 --port=8000
 ```
 
 
