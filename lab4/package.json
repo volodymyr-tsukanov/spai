@@ -1,0 +1,29 @@
+{
+  "name": "express-serwer",
+  "version": "0.0.9",
+  "description": "Prosta aplikacja serwerowa oparta na szkielecie Express",
+  "main": "zad4-1.js",
+  "author": "John Doe",
+  "scripts": {
+    "zad1": "node zad4-1.js",
+    "zad13": "node zad4-3.js",
+    "zad15": "node zad4-5.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "dependencies": {
+    "babel": "^6.23.0",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "express-react-views": "^0.11.0",
+    "express-validator": "^7.2.1",
+    "hbs": "^4.2.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-flow-strip-types": "^7.26.5",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3"
+  }
+}
