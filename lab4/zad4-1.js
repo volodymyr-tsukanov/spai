@@ -26,17 +26,12 @@ app.get('/about', (req, res) => {
 // });
 
 app.get("/form", (req, res) => {
-    res.sendFile(path.join(__dirname, "form.html"))
-})
-app.post("/form", (req, res) => {
     let username = req.query.username
     let password = req.query.password
 
-    if(!(username && password)){
-        res.send("Uzupełnij dane!")
-        return
-    }
-    res.send("Użytkownik: " + username + "<br>Hasło: " + password)
+    if(username && password){
+        res.send("Użytkownik: " + username + "<br>Hasło: " + password)
+    } else res.sendFile(path.join(__dirname, "form.html"))
 })
 
 app.get("/form2", (req, res) => {

@@ -8,6 +8,8 @@
     "zad1": "node zad4-1.js",
     "zad13": "node zad4-3.js",
     "zad15": "node zad4-5.js",
+    "start": "node zad4-1.js",
+    "dev": "nodemon zad4-1.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
