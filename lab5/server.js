@@ -3,10 +3,13 @@ const path = require("path")
 const handleBars = require("handlebars")
 const exphbs = require("express-handlebars")
 const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-access")
-const mongoose = require("mongoose")
+const db = require('./db')
+const Student = require('./models/Student')
+const SC = require('./controllers/StudentController')
 
 
 const app = express()
+module.exports = app
 
 app.use(express.urlencoded({
     extended: true
@@ -20,7 +23,7 @@ app.engine(
         handlebars: allowInsecurePrototypeAccess(handleBars),
         extname: "hbs",
         defaultLayout: "layout",
-        layoutsDir: __dirname,
+        layoutsDir: path.join(__dirname, "layouts"),
     })
 )
 
@@ -28,6 +31,7 @@ app.set("view engine", "hbs")
 app.listen(3000, () => {
     console.log("Serwer nasłuchuje na porcie 3000")
 })
+
 
 
 app.get("/", (req, res) => {
@@ -45,19 +49,19 @@ app.get("/list", (req, res) => {
         console.log("Błąd pobierania danych" + err)
     })
 })
-    app.get("/addOrEdit", (req, res) => {
+app.get("/addOrEdit", (req, res) => {
     res.render("addOrEdit", {
         viewTitle: "Dodaj studenta"
     })
 })
-    app.post("/", (req, res) => {
+app.post("/", (req, res) => {
     if (req.body._id == "") {
-        insert(req, res)
+        SC.insert(req, res)
     } else {
-        update(req, res)
+        SC.update(req, res)
     }
 })
-    app.get("/:id", (req, res) => {
+app.get("/:id", (req, res) => {
     Student.findById(req.params.id).then((doc) => {
         res.render("addOrEdit", {
             viewTitle: "Zaktualizuj dane studenta",
@@ -67,55 +71,16 @@ app.get("/list", (req, res) => {
         console.log("Błąd podczas akutalizowania danych" + err)
     })
 })
-    app.get("/delete/:id", (req, res) => {
+app.get("/delete/:id", (req, res) => {
     Student.findByIdAndRemove(req.params.id).then((doc) => {
         res.redirect("/list")
     }).catch((err) => {
         console.log("Błąd podczas usuwania: " + err)
     })
 })
-    
 
 
 
+db.Connect()
 
 
-const studentSchema = new mongoose.Schema({
-    fullName: String,
-    email: String,
-    mobile: Number,
-    city: String,
-})
-const Student = mongoose.model("Student", studentSchema)
-mongoose.connect("mongodb://localhost:27017/spai", { useNewUrlParser: true })
-    .then((result) => {
-        console.log("Połączono z bazą")
-    }).catch((err) => {
-        console.log("Nie można połączyć się z MongoDB. Błąd: " + err)
-    })
-
-
-
-    
-
-async function insert(req, res) {
-    let student = new Student()
-    student.fullName = req.body.fullName
-    student.email = req.body.email
-    student.mobile = req.body.mobile
-    student.city = req.body.city
-    try {
-        await student.save()
-        res.redirect("/list")
-    } catch (err) {
-        console.log("Błąd podczas dodawania studenta: " + err)
-    }
-}
-async function update(req, res) {
-    try {
-        await Student.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true })
-        res.redirect("list")
-    } catch (err) {
-        console.log("Błąd podczas aktualizowania danych: " + err)
-    }
-}
