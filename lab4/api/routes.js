@@ -1,55 +1,39 @@
 const express = require('express');
-const path = require('path')
-const bodyParser = require('body-parser')
-const { check, validationResult } = require('express-validator')
-let users = require('./users')
+const path = require("path");
+const {check, validationResult} = require("express-validator");
+let users = require("../users");
+const router = express.Router();
+const isAuthorized = require("../middleware/autoryzacja");
 
 
-const app = express();
-const PORT = 3000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
     res.send('Prosty serwer oparty na szkielecie programistycznym Express!');
 });
 
-app.get('/about', (req, res) => {
-    res.send('Autor strony: John Doe');
+router.get('/about', (req, res) => {
+    res.send('Autor strony: Student');
 });
 
-
-app.get('/name/:imie/:imie2?', (req, res) => {
-     const { imie, imie2 } = req.params;
-     const message = imie2 ? `Cześć ${imie} i ${imie2}.` : `Cześć ${imie}.`;
-     res.status(200).type('text/html').send(`<h1>${message}</h1>`);
-});
-
-app.get("/form-get", (req, res) => {
+router.get("/form", (req, res) => {
+    res.sendFile(path.join(__dirname, "form.html"))
+})
+router.post("/form", (req, res) => {
     let username = req.query.username
     let password = req.query.password
 
-    if(username && password){
-        res.send("Użytkownik: " + username + "<br>Hasło: " + password)
-    } else res.sendFile(path.join(__dirname, "form.html"))
-})
-app.get("/form", (req, res) => {
-    res.sendFile(path.join(__dirname, "form.html"))
-})
-app.post("/form", (req, res) => {
-    let name = req.body.username;
-    let pass = req.body.password;
-    if (!(name && pass)) {
-        res.send("Uzupełnij dane!");
-        return;
+    if(!(username && password)){
+        res.send("Uzupełnij dane!")
+        return
     }
-    res.send("Użytkownik: " + name + "<br>Hasło: " + pass)
+    res.send("Użytkownik: " + username + "<br>Hasło: " + password)
 })
 
-app.get("/form2", (req, res) => {
+router.get("/form2", (req, res) => {
     res.sendFile(path.join(__dirname, "form2.html"))
 })
-app.post("/form2", (req, res) => {
+
+router.post("/form2", (req, res) => {
     let names = req.body.username;
     let lang = req.body.lang;
 
@@ -64,6 +48,9 @@ app.post("/form2", (req, res) => {
     res.send("Użytkownik: " + names + "<br>Znajomość języków: " + "<ul>" + lang.map(l => "<li>" + l + "</li>").join("") + "</ul>");
 });
 
+router.get("/form3", (req, res) => {
+    res.sendFile(path.join(__dirname, "form3.html"))
+})
 
 const getInitials = (fullName) => {
     return fullName
@@ -72,10 +59,7 @@ const getInitials = (fullName) => {
         .join('.');
 };
 
-app.get("/form3", (req, res) => {
-    res.sendFile(path.join(__dirname, "form3.html"))
-})
-app.post("/form3",  [
+router.post("/form3",  [
     check('username')
         .trim()
         .bail()
@@ -109,10 +93,10 @@ app.post("/form3",  [
     res.send("Użytkownik: " + nazwisko + "<br>Email: " + email + "<br>Wiek: " + wiek)
 });
 
-app.get('/api/users', (req,res) => {
+router.get('/api/users', isAuthorized, (req,res) => {
     res.json(users);
 })
-app.get('/api/users/:id', (req,res) => {
+router.get('/api/users/:id', (req,res) => {
     const id = req.params.id;
     const user = users.find(user => user.id === parseInt(id));
     if(!user) {
@@ -121,7 +105,8 @@ app.get('/api/users/:id', (req,res) => {
     }
     res.json(user);
 })
-app.post('/api/users', (req, res) => {
+
+router.post('/api/users', (req, res) => {
     const newUser = {
         id: users.length + 1,
         name: req.body.name,
@@ -135,7 +120,8 @@ app.post('/api/users', (req, res) => {
     users.push(newUser)
     res.json(users)
 })
-app.patch('/api/users/:id', (req, res) => {
+
+router.patch('/api/users/:id', (req, res) => {
     const found = users.some(user => user.id === parseInt(req.params.id))
     if(found){
         const updUser = req.body
@@ -150,7 +136,7 @@ app.patch('/api/users/:id', (req, res) => {
         res.status(400).json({msg: `Użytkownik o id ${req.params.id} nie istnieje!`})
     }
 })
-app.delete('/api/users/:id', (req, res) => {
+router.delete('/api/users/:id', (req, res) => {
     const found = users.some(user => user.id === parseInt(req.params.id))
     if(found){
         users = users.filter(user => user.id !== parseInt(req.params.id))
@@ -160,8 +146,5 @@ app.delete('/api/users/:id', (req, res) => {
     }
 })
 
-
-
-app.listen(PORT, () => {
-    console.log(`Serwer działa na porcie: ${PORT}`);
-});
+// Eksport routera
+module.exports = router;

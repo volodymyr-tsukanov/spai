@@ -1,0 +1,16 @@
+const React = require('react');
+
+const InfoMessage = ({surname, email, age}) => {
+    return (
+        <main>
+            <h1>Info</h1>
+            <p>
+                Nazwisko: <strong>{surname}</strong><br/>
+                Email: <strong>{email}</strong><br/>
+                Wiek: <strong>{age}</strong><br/>
+            </p>
+        </main>
+    )
+}
+
+module.exports = InfoMessage
