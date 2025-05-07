@@ -88,7 +88,7 @@ export function CalcImprov() {
         alert("Division by zero is not allowed!");
       } else {
         setState({
-          result: (eval(state.result) || "") + ""
+          result: (eval(state.result) || "0") + ""
         })
       }
     } catch (e) {
