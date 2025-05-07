@@ -1,11 +1,12 @@
 .solid p {
-  color: black;
+  background: none;
 }
 
 .liquid p {
-  color: blue;
+  background: blue;
+  color: red;
 }
 
 .gas p {
-  color: lightgray;
+  background: lightgray;
 }

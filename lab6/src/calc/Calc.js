@@ -1,7 +1,7 @@
 import { useState } from "react"
-import './App.css';
+import './Calc.css';
 
-export default function Calc() {
+export function Calc() {
   const [result, setResult] = useState(null)
   const [input1, setInput1] = useState(null)
   const [input2, setInput2] = useState(null)

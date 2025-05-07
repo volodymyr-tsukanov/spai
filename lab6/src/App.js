@@ -1,6 +1,7 @@
-import Calc from "./Calc";
+import { Calc } from "./calc/Calc";
 import Card from "./cards/Card";
 import Temper from "./Temper";
+import Topp from "./toppings/Topp";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
       <Calc />
       <br/><br/><br/><br/>
       <Temper />
+      <br/><br/><br/><br/>
+      <Topp />
+      <br/><br/><br/><br/>
+
     </div>
   )
 }
