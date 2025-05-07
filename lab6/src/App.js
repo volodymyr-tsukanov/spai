@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Card from "./cards/Card";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div>
+      <h1>Słynni informatycy</h1>
+      <Card
+        name="Alan Turing"
+        imgSrc="https://mdz.cs.pollub.pl/ai/alan_turing.jpg"
+        infos={["1912 - 1954", "Matematyk", "Anglia"]} />
+      <Card
+        name="Niklaus Wirth"
+        imgSrc="https://mdz.cs.pollub.pl/ai/nicolas_wirth.jpg"
+        infos={["1934 - will be some day", "Elektronik i informatyk", "Szwajcaria"]}
+      />
 
-export default App;
+      <Card
+        name="Dennis Ritchie"
+        imgSrc="https://mdz.cs.pollub.pl/ai/dennis_ritchie.jpg"
+        infos={["1941 - 2011", "Matematyk, fizyk, informatyk", "USA"]}
+      />
+    </div>
+  )
+}
+export default App
