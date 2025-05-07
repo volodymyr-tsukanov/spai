@@ -1,5 +1,7 @@
 import { useState } from "react"
 import './Calc.css';
+import Result from "./Result";
+import Keypad from "./Keypad";
 
 export function Calc() {
   const [result, setResult] = useState(null)
@@ -58,6 +60,61 @@ export function Calc() {
         </button>
       </div>
       <h4>Wynik: {result}</h4>
+    </div>
+  )
+}
+
+export function CalcImprov() {
+  const [state, setState] = useState({ result: "" })
+
+  const onClick = button => {
+    switch (button) {
+      case "=":
+        calculate()
+        break
+      case "C":
+        reset()
+        break
+      case "CE":
+        backspace()
+        break
+      default:
+        setState({ result: state.result + button })
+    }
+  }
+  const calculate = () => {
+    try {
+      if (/\/0(?![0-9])/.test(state.result)) {
+        alert("Division by zero is not allowed!");
+      } else {
+        setState({
+          result: (eval(state.result) || "") + ""
+        })
+      }
+    } catch (e) {
+      setState({
+        result: "error"
+      })
+    }
+  }
+  const reset = () => {
+    setState({
+      result: ""
+    })
+  }
+  const backspace = () => {
+    setState({
+      result: state.result.slice(0, -1)
+    })
+  }
+
+  return (
+    <div>
+      <div className="srodek">
+        <h3>Kalkulator</h3>
+        <Result result={state.result} />
+        <Keypad onClick={onClick} />
+      </div>
     </div>
   )
 }

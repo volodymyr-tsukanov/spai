@@ -1,0 +1,34 @@
+button {
+  padding: 10px;
+}
+
+.result {
+  padding: 0 10px 0 10px;
+}
+
+input {
+  padding: 10px;
+}
+
+.srodek {
+  text-align: center;
+}
+
+button {
+  border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  max-width: 40px;
+  outline: 10;
+  width: 80%;
+}
+
+button.primary {
+  background: #f58733;
+}
+
+button.secondary {
+  background: #c1d7aa;
+}

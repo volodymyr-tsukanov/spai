@@ -1,4 +1,4 @@
-import { Calc } from "./calc/Calc";
+import { Calc, CalcImprov } from "./calc/Calc";
 import Card from "./cards/Card";
 import Temper from "./Temper";
 import Topp from "./toppings/Topp";
@@ -28,7 +28,7 @@ function App() {
       <br/><br/><br/><br/>
       <Topp />
       <br/><br/><br/><br/>
-
+      <CalcImprov />
     </div>
   )
 }
