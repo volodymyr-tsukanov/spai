@@ -1,5 +1,6 @@
 import { Calc, CalcImprov } from "./calc/Calc";
 import Card from "./cards/Card";
+//import Diary from "./diary/Diary";
 import Temper from "./Temper";
 import Topp from "./toppings/Topp";
 
@@ -29,6 +30,7 @@ function App() {
       <Topp />
       <br/><br/><br/><br/>
       <CalcImprov />
+      <br/><br/><br/><br/>
     </div>
   )
 }
