@@ -1,0 +1,11 @@
+.solid p {
+  color: black;
+}
+
+.liquid p {
+  color: blue;
+}
+
+.gas p {
+  color: lightgray;
+}
