@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from "react-router-dom"
-import Main from "./components/Main"
-import Signup from "./components/Signup"
-import Login from "./components/Login"
+import Main from "./Main"
+import Signup from "./Signup"
+import Login from "./Login"
 
 
 function App() {
