@@ -12,6 +12,10 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0",
+    "express-flash": "^0.0.2",
+    "express-layout": "^0.1.0",
+    "express-session": "^1.18.1",
+    "hbs": "^4.2.0",
     "helmet": "^8.1.0"
   }
 }

@@ -1,0 +1,34 @@
+<div class="form-header">
+    {{#if (eq (lengthObject errors) 0)}}
+    <h2>Send us a message</h2>
+    {{else}}
+    <h2 class="errors-heading">Oops, please correct the following:</h2>
+    <ul class="errors-list">
+        {{#each errors}}
+        <li>{{this.msg}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</div>
+
+<form method="post" action="/contact" novalidate>
+    <div class="form-field {{#if errors.message}}form-field-invalid{{/if}}">
+        <label for="message">Message</label>
+        <textarea class="input" id="message" name="message" rows="4" autofocus>{{data.message}}</textarea>
+        {{#if errors.message}}
+        <div class="error">{{errors.message.msg}}</div>
+        {{/if}}
+    </div>
+
+    <div class="form-field {{#if errors.email}}form-field-invalid{{/if}}">
+        <label for="email">Email</label>
+        <input class="input" id="email" name="email" type="email" value="{{data.email}}" />
+        {{#if errors.email}}
+        <div class="error">{{errors.email.msg}}</div>
+        {{/if}}
+    </div>
+
+    <div class="form-actions">
+        <button class="btn" type="submit">Send</button>
+    </div>
+</form>
