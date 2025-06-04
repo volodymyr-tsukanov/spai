@@ -1,17 +1,20 @@
 const express = require('express')
+const csrf = require('csurf')
+const csrfProtection = csrf({ cookie: true })
 const router = express.Router()
 
 router.get('/', (req, res) => {
     res.render('index')
 });
 
-router.get('/contact', (req, res) => {
+router.get('/contact', csrfProtection, (req, res) => {
     res.render('contact', {
         data: {},
-        errors: {}
+        errors: {},
+        csrfToken: req.csrfToken()
     })
 })
-router.post('/contact', (req, res) => {
+router.post('/contact', csrfProtection, (req, res) => {
     const { message, email } = req.body;
     const errors = {};
 
@@ -27,12 +30,16 @@ router.post('/contact', (req, res) => {
     if (Object.keys(errors).length > 0) {
         return res.render('contact', {
             data: { message, email },
-            errors
+            errors,
+            csrfToken: req.csrfToken()
         });
     }
 
     // Success: optionally redirect or show success message
-    res.send('Thank you for your message!');
+    res.send(`
+        <h1>Thank you for your message!</h1>
+        <p><a href="/" style="display:inline-block; padding:8px 16px; background:#007BFF; color:#fff; text-decoration:none; border-radius:4px;">Return to Home</a></p>
+      `);
 });
 
 

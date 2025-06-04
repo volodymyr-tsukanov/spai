@@ -8,6 +8,7 @@ const https = require("https");
 const fs = require("fs");
 const helmet = require("helmet");
 const hbs = require('hbs');
+const cookieParser = require('cookie-parser');
 
 
 const options = {
@@ -38,6 +39,8 @@ const middlewares = [
     express.urlencoded({ extended: true })
 ];
 app.use(middlewares);
+
+app.use(cookieParser());
 
 app.use('/', routes)
 app.use((req, res, next) => {

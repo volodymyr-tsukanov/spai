@@ -11,6 +11,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "csurf": "^1.11.0",
     "express": "^5.1.0",
     "express-flash": "^0.0.2",
     "express-layout": "^0.1.0",
