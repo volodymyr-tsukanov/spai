@@ -1,0 +1,8 @@
+# Documentation
+*.md
+
+# git
+.gitignore
+.gitattributes
+
+.env.example

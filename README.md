@@ -1,7 +1,24 @@
 # spai
 Advanced Web Application Engineering
 
-**JavaScript**, **Node.js** ; **php**, **Laravel** <br><br>
+**JavaScript**, **Node.js** ; **php**, **Laravel** <br>
+**Podman**, **docker**
+
+## Setup
+```bash
+podman-compose build
+podman-compose up -d -t 4 && podman-compose exec spai-app ash
+podman cp . spai-app_cnt:/home/
+```
+inside spai-app_cnt
+```sh
+mv .env.cnt .env
+composer install && npm install
+# php artisan breeze:install
+php artisan migrate
+php artisan serve --host=0.0.0.0 --port=8000
+```
+<br><br>
 
 
 Shields: [![MIT License][mit-shield]][mit]
