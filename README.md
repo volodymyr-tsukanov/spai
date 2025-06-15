@@ -1,7 +1,7 @@
 # spai
-Advanced Web Application Engineering <br>
+Advanced Web Application Engineering
 
-**JavaScript**, **Node.js** <br><br>
+**JavaScript**, **Node.js** ; **php**, **Laravel** <br><br>
 
 
 Shields: [![MIT License][mit-shield]][mit]
