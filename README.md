@@ -21,6 +21,8 @@ php artisan serve --host=0.0.0.0 --port=8000
 <br><br>
 
 
+![Finished](https://img.shields.io/badge/status-Finished%20%F0%9F%8F%81-3CB371?style=for-the-badge&logo=github)
+
 Shields: [![MIT License][mit-shield]][mit]
 
 [mit]: https://opensource.org/licenses/MIT
